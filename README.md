@@ -42,7 +42,8 @@ You can run the application using
 streamlit run main.py
 
 ------------------------------
-# Folder structure
+# 📂 Folder Structure
+```
 Portfolio_design/
 │── main.py                # Main application file
 │── data.csv               # Contains relevant data for responses
@@ -51,6 +52,7 @@ Portfolio_design/
 │── .env                   # Stores API key (DO NOT SHARE)
 │── requirements.txt       # Python dependencies
 │── README.md              # This file!
+```
 
 ---------------------------------------
 
@@ -71,9 +73,8 @@ Click the "Download my Resume" button on the app.
 
 ---------------------------------
 🔗 Connect with Me
-🔹 LinkedIn[https://www.linkedin.com/in/shastransu-suprabh/]
-
-🔹 GitHub[https://github.com/Shastransu]
+🔹 [Linkedin](https://www.linkedin.com/in/shastransu-suprabh/)
+🔹 [GitHub](https://github.com/Shastransu)
 
 ---------------------------------------
 🏆 Contributing & Feedback
