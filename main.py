@@ -161,6 +161,86 @@ def main():
     st.set_page_config(
         page_title="Get to know me", page_icon=":male-technologist:")
 
+    st.markdown("""
+        <style>
+        /* Clean dark theme background */
+        .stApp {
+            background: #1a1a1a;
+        }
+
+        /* Minimal styling for content */
+        .stMarkdown {
+            color: #ffffff;
+        }
+
+        /* Social icons styling - keeping the hover effects */
+        .social-icons {
+            text-align: right;
+            padding: 10px 0;
+        }
+        .social-icons a {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .social-icons a:last-child {
+            margin-right: 0;
+        }
+        .social-icons a img {
+            width: 30px;
+            transition: all 0.3s ease;
+            filter: brightness(0.9);
+        }
+        .social-icons a img:hover {
+            transform: translateY(-3px) scale(1.1);
+            filter: brightness(1);
+        }
+
+        /* Clean text styling */
+        h1, h3 {
+            color: #ffffff !important;
+            font-weight: 600;
+        }
+        p {
+            color: #e0e0e0 !important;
+        }
+
+        /* Subtle button styling */
+        .stDownloadButton button {
+            background-color: #333333 !important;
+            color: white !important;
+            border-radius: 5px;
+            border: none !important;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+        .stDownloadButton button:hover {
+            background-color: #444444 !important;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Clean text area styling */
+        .stTextArea textarea {
+            background-color: #2d2d2d !important;
+            color: #ffffff !important;
+            border: none !important;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .stTextArea textarea:focus {
+            box-shadow: 0 0 0 2px rgba(77, 77, 77, 0.2);
+        }
+
+        /* Minimal response container */
+        .response-container {
+            background-color: #2d2d2d;
+            color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
     # Move resume download and social icons to the top
     col4, col5 = st.columns([3, 1])
     with col4:
@@ -184,19 +264,47 @@ def main():
     # Smaller profile picture
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        st.image("profile.jpg", width=150, use_column_width=True)
+        st.image("profile.jpg", width=150, use_container_width=True)
 
     st.markdown("<h3 style='text-align: center;'>Hi, I'm Shastransu Suprabh. Feel free to ask me any questions you have!</h3>",
                 unsafe_allow_html=True)
 
-    message = st.text_area("Your question:", height=100, label_visibility="collapsed")
-
+    # Add a hint before the text area
+    st.markdown("""
+            <div style='
+                color: #888888;
+                font-size: 0.8em;
+                margin-bottom: 8px;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            '>
+                <span>💡</span>
+                <span>Press Ctrl+Enter to submit your question</span>
+            </div>
+        """, unsafe_allow_html=True)
+    # Text area for input
+    message = st.text_area(
+        "Your question:",
+        height=120,
+        label_visibility="collapsed",
+        message=st.text_area("Your question:", height=100, label_visibility="collapsed"),
+        placeholder = "Type your question here...",
+        key = "question_input"
+    )
     if message:
-        st.write("Thinking...")
+        if message:
+            with st.spinner("Thinking... Please wait"):
+                st.write("Thinking...")
+            result = generate_response(message)
+    result = generate_response(message)
 
-        result = generate_response(message)
-
-        st.info(result)
+    st.markdown(f"""
+                <div class='response-container'>
+                    {result}
+            st.info(result)
+                </div>
+            """, unsafe_allow_html=True)
 
 
 if __name__ == '__main__':
